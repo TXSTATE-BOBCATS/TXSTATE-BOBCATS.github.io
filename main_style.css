@@ -6,3 +6,40 @@ html, body, #map {
     height: 100%;
     width: 100%;
 }
+
+
+
+/* drop-down menun */
+.dropdown {
+  background-color: MistyRose;
+  position: absolute;
+  width: 150px;
+  height: 50px;
+  text-align: center;
+  right: 10px;
+  top: 10px;
+  display: inline-block;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 500;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 50px;
+  text-align: left;
+  background-color: #f9f9f9;
+  min-width: 130px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 10px 10px;
+  z-index: 500;
+}
+
+.dropdown:hover{
+  background-color: lightpink;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  background-color: MistyRose;
+}
