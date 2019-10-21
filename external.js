@@ -6,13 +6,12 @@ L.tileLayer(
     attribution: '&copy; ' + mapLink + ' Contributors',
     maxZoom: 18,
     }).addTo(map);
-    
+
 // return a buffer of a point feature
 function campus(point){
   var location =turf.point(point);
   var buffered = turf.buffer(location, 2, {units: 'miles'});
   L.geoJson(buffered, {color: "red"}).addTo(map);
-
 }
 
 // return a absolute center point of features
@@ -30,7 +29,8 @@ function center(features){
   result.bindPopup("Absolute center point (lon,lat): <br>" + centerLatLon).addTo(map);
   //document.getElementById('testtext').innerHTML = turf.getCoords(centerPt);
   map.flyTo([29.8888036, -97.9423239],18);
-
-  //Author Info
-  document.getElementById("authors").innerHTML = "<a href='https://irinaramirez9.github.io/' target='_blank'>Irina Ramirez</a><br><a href='https://TingHsuanYang24.github.io/' target='_blank'>TingHsuan Yang</a>";
 }
+
+
+//Author Info in drop-down menu
+document.getElementById("authors").innerHTML = "<a href='https://irinaramirez9.github.io/' target='_blank'>Irina Ramirez</a><br><a href='https://TingHsuanYang24.github.io/' target='_blank'>TingHsuan Yang</a>";
