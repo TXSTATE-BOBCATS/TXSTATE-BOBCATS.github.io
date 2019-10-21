@@ -13,7 +13,7 @@
 <body>
     <div id="map">
       <div id="map-content">
-        <!--drop-down menu-->
+        <!--Drop-down menu-->
         <div class="dropdown">
           <h1>About Us</h1>
           <div class="dropdown-content">
@@ -22,15 +22,46 @@
         </div>
       </div>
 
-  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js">
-  </script>
-
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
   <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
   <script src ="external.js"></script>
+
+  <!--Add turf.buffer() function-->
   <script>
       var txstate =[-97.9384, 29.8884];
       campus(txstate);
   </script>
+  <!--Add turf.center() function-->
+  <script>
+  var eLA = [
+    [-97.9423239,29.8888036],
+    [-97.9422932,29.8886082],
+    [-97.9422006,29.8886190],
+    [-97.9421818,29.8884985],
+    [-97.9414617,29.8885593],
+    [-97.9414647,29.8885814],
+    [-97.9413946,29.8885888],
+    [-97.9413989,29.8886153],
+    [-97.9413044,29.8886263],
+    [-97.9413104,29.8886601],
+    [-97.9413238,29.8886595],
+    [-97.9413366,29.8887287],
+    [-97.9411421,29.8887513],
+    [-97.9411468,29.8887792],
+    [-97.9410885,29.8887856],
+    [-97.9411133,29.8889519],
+    [-97.9411663,29.8889443],
+    [-97.9411709,29.8889752],
+    [-97.9415597,29.8889283],
+    [-97.9415520,29.8888914],
+    [-97.9420057,29.8888356],
+    [-97.9420131,29.8888818],
+    [-97.9421358,29.8888679],
+    [-97.9421281,29.8888255],
+    [-97.9423239,29.8888036]
+  ];
+  center(eLA);
+</script>
 
 </body>
 
