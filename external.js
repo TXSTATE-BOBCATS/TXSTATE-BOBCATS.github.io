@@ -7,3 +7,10 @@ L.tileLayer(
     attribution: '&copy; ' + mapLink + ' Contributors',
     maxZoom: 18,
     }).addTo(map);
+
+function campus(point){
+  var location =turf.point(point);
+  var buffered = turf.buffer(location, 2, {units: 'miles'});
+  L.geoJson(buffered, {color: "red"}).addTo(map);
+      
+}
