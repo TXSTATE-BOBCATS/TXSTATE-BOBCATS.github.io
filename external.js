@@ -1,78 +1,138 @@
-
-
 // Load arcgis.js moduels
     require([
       "esri/Map",
       "esri/views/MapView",
       "esri/layers/TileLayer",
       "esri/layers/MapImageLayer",
-      "esri/widgets/BasemapGallery",
+      "esri/layers/FeatureLayer",
+      "esri/widgets/BasemapToggle",
+      "esri/widgets/Fullscreen",
+      "esri/widgets/Search",
+      "esri/widgets/LayerList",
       "esri/layers/GraphicsLayer",
       "esri/tasks/QueryTask",
       "esri/tasks/support/Query",
+      "esri/widgets/TimeSlider",
+      "esri/layers/support/Field",
+      "esri/intl",
+      "esri/popup/support/FieldInfoFormat",
       "dojo/_base/array",
       "dojo/dom",
       "dojo/on",
       "dojo/domReady!"
     ],
-function(Map, MapView, TileLayer, MapImageLayer, BasemapGallery, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
-  // Creat a renderer (markers) for a dynamic map image layer to use later
-  var LocationsRenderer = {
-    type: "simple", //autocasts as new SimpleRenderer()
-    //Set symbol options
-    symbol: {
-      type: "simple-marker", //autocasts as new SimpleMarkerSymbol()
-      size: 3,
-      color: "green",
-      style: "circle",
-      outline: {
-        width: 1,
-        color: "black"
-      }
-    },
-    //Set labels
-    label: "Location Name"
-  };
-  // Create a dynamic map image layer by referencing its URL and set layer options
-  var LocationsLayer = new MapImageLayer({
-    url: "https://http://www.arcgis.com/home/item.html?id=73389566a1414c69bd139dc90faa892f",
-    sublayers: [
-      {
-        id: 0,
-        renderer: LocationsRenderer,
-        opacity: 0.9
-      }
-    ]
+function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, BasemapToggle, Fullscreen, Search, LayerList, GraphicsLayer, QueryTask, Query, TimeSlider, Field, intl, FieldInfoFormat, arrayUtils, dom, on){
+  // Create a feature layer displaying data
+  var MonitoringLayer = new FeatureLayer({
+    url: "https://services5.arcgis.com/w5EzInDqtu24PScU/arcgis/rest/services/ITC_Air_Monitoring_Map(BZ)/FeatureServer/0",
+    outFields: ["DateTime","Type","VOC","Benzene","Xylene","Toluene", "Naptha", "H2S", "CO", "PM", "Agency", "Detected"],
+    popupTemplate: popupTemplate,
   });
+
   // Create a tile layer by referencing its URL
-  var TransportationLayer = new TileLayer({
-    url: "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer"
+  var WorldMapaLayer = new TileLayer({
+    url: "https://server.arcgisonline.com/arcgis/rest/services/Reference/World_Boundaries_and_Places/MapServer"
   });
+
   // Create a map then set its basemap and tilelayers.
   var map = new Map({
-    basemap: "dark-gray",
-    layers: [TransportationLayer, LocationsLayer]
+    basemap: "topo-vector",
+    layers: [MonitoringLayer , WorldMapaLayer]
   });
+
   // Set a mapview
   var view = new MapView({
     container: "viewDiv",           // Put the mapview in a division (element id="viewDiv")
     map: map,                       // Asign the predefined map to the mapview
     zoom: 10,                       // Set zoom level
-    center: [-118.2095, 34.0866]    // Set mapview center point
+    center: [-95.096093, 29.734190]    // Set mapview center point
   });
-  // Set a basemap gallery
-  var basemapGallery = new BasemapGallery({
+
+
+  // Set on-hover feature pop-up info window
+  view.on("click", function(event){
+    view.popup.open({
+      // Set the popup
+      location: event.mapPoint,
+      fetchFeatures: true,
+      popupTemplate: popupTemplate
+    });
+  });
+
+  // Set full screen button
+  fullscreen = new Fullscreen({
+    view: view
+  });
+  view.ui.add(fullscreen, {
+    position: "top-left",
+  });
+
+  // Set location/place/address search widget.
+  var searchWidget = new Search({
+    view: view
+    });
+    // Adds the search widget below other elements in the top left corner of the view
+    view.ui.add(searchWidget, {
+      position: "top-right",
+      index: 2
+    });
+
+    // Set a layer list and switching controller
+    var layerList = new LayerList({
+      view: view,
+      listItemCreatedFunction: function (event){
+        const item = event.item;
+        if (item.layer.type != "group") {
+          // don't show legent twice
+          item.panel = {
+            content: "legend",
+            open: false
+          };
+        }
+      }
+    });
+    // Adds widget below other elements in the top left corner of the view
+    view.ui.add(layerList, "top-right");
+
+    // Set a basemap toggle
+  var basemapToggle = new BasemapToggle({
     view: view                     // Set the view from which the widget will operate
-  });
-  // Add widget to the top right corner of the view
-  view.ui.add(basemapGallery, {
-    position: "top-right"
-  });
+    });
+    // Add widget to the top right corner of the view
+    view.ui.add(basemapToggle, {
+      position: "bottom-left",
+      nextBasemap: "hybrid"
+    });
+
   // Execute the following callback function when the instance of the class loads. Callback function:
   view.when(function() {
     view.ui.add("optionsDiv", "bottom-right"); // Add the new division for query to the bottom-right corner of the mapview,
     on(dom.byId("doBtn"), "click", doQuery);   // Set to script to run callbak function "doQuery" on click of the query bottom.
   });
+/*
+  // Set hover-on pop-up displaying feature FieldInfoFormatview.on("click", function(event){
+  view.on("hover", function(event){
+    view.popup.location = event.mapPoint;
+    // Displays the popup
+    view.popup.visible = true;
+  });
+
+  // Set Time TimeSlider
+  var timeSlider = new TimeSlider({
+    container: "timeSliderDiv",
+    view: view,
+    mode: "time-window",
+    fullTimeExtent: {
+      start: new Date(2019, 0, 1),
+      end: new Date(2019, 0, 1)
+    },
+    values:[
+      new Date(2019,0,1),
+      new Date(2019,1,1)
+    ]
+  });
+  view.ui.add(timeSlider, "manually");
+  */
   // Set variables for attribute query selectors
   var attributeName = dom.byId("attSelect");
   var expressionSign = dom.byId("signSelect");
@@ -111,35 +171,107 @@ function(Map, MapView, TileLayer, MapImageLayer, BasemapGallery, GraphicsLayer, 
     console.error("Promise rejected: ", error.message);  //Pint error message
   }
   // Set variables  feature layer to query
-  var popUrl = "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/CaliforniaCities/FeatureServer/0";
+  var airUrl = "https://services5.arcgis.com/w5EzInDqtu24PScU/ArcGIS/rest/services/ITC_Air_Monitoring_Map/FeatureServer/0";
   // Set popup template for dsplaying query results
   var popupTemplate = {
-    title: "{City}",
+    title: "{DateTime}",
+    content: "<b>Monitoring Date & Time:</b>{DateTime}<br>" +
+             "<b>Type:</b> {Type}<br>" +
+             "<b>VOC (ppm):</b> {VOC}<br>" +
+             "<b>Benzene (ppm):</b> {Benzene}<br>" +
+             "<b>Xylene (ppm):</b> {Xylene}<br>" +
+             "<b>Toluene (ppm):</b> {Toluene}<br>" +
+             "<b>Naptha (ppm):</b> {Naptha}<br>" +
+             "<b>H2S (ppm):</b> {H2S}<br>" +
+             "<b>CO (ppm):</b> {CO}<br>" +
+             "<b>PM (ug/m3):</b> {PM}<br>" +
+             "<b>Agency:</b> {Agency}",
     fieldInfos: [{
-      fieldName: "Population", // Set field name to display in popups
-      label: "Population",     // Set field alias
-      // Set formatting options for numerical fields
+      fieldName: "DateTime",
       format: {
-        places: 0,             // Specify the number of supported decimal places that should appear in popups
-        digitSeperator: true   // Set digit seperator to appear in popups
+        dateFormat: "short-date-le-short-time"
+        }
+      },{
+        fieldName: "Type", // Set field name to display in popups
+        label: "Type",     // Set field alias
+      },{
+        fieldName: "VOC", // Set field name to display in popups
+        label: "VOC",     // Set field alias
+        // Set formatting options for numerical fields
+        format: {
+          places: 2,             // Specify the number of supported decimal places that should appear in popups
+          digitSeperator: true   // Set digit seperator to appear in popups
+        }
+      },{
+          fieldName: "H2S", // Set field name to display in popups
+          label: "H2S",     // Set field alias
+          // Set formatting options for numerical fields
+          format: {
+            places: 2,             // Specify the number of supported decimal places that should appear in popups
+            digitSeperator: true   // Set digit seperator to appear in popups
+          }
+      },{
+          fieldName: "CO", // Set field name to display in popups
+          label: "CO",     // Set field alias
+          // Set formatting options for numerical fields
+          format: {
+            places: 0,             // Specify the number of supported decimal places that should appear in popups
+            digitSeperator: true   // Set digit seperator to appear in popups
+          }
+      },{
+          fieldName: "PM", // Set field name to display in popups
+          label: "PM",     // Set field alias
+          // Set formatting options for numerical fields
+          format: {
+            places: 0,             // Specify the number of supported decimal places that should appear in popups
+            digitSeperator: true   // Set digit seperator to appear in popups
+          }
+      },{
+          fieldName: "Benzene", // Set field name to display in popups
+          label: "Benzene",     // Set field alias
+          // Set formatting options for numerical fields
+          format: {
+            places: 0,             // Specify the number of supported decimal places that should appear in popups
+            digitSeperator: true   // Set digit seperator to appear in popups
+          }
+      },{
+          fieldName: "Xylene", // Set field name to display in popups
+          label: "Xylene",     // Set field alias
+          // Set formatting options for numerical fields
+          format: {
+            places: 0,             // Specify the number of supported decimal places that should appear in popups
+            digitSeperator: true   // Set digit seperator to appear in popups
+          }
+      },{
+          fieldName: "Toluene", // Set field name to display in popups
+          label: "Toluene",     // Set field alias
+          // Set formatting options for numerical fields
+          format: {
+            places: 0,             // Specify the number of supported decimal places that should appear in popups
+            digitSeperator: true   // Set digit seperator to appear in popups
+          }
+      },{
+          fieldName: "Naptha", // Set field name to display in popups
+          label: "Naptha",     // Set field alias
+          // Set formatting options for numerical fields
+          format: {
+            places: 0,             // Specify the number of supported decimal places that should appear in popups
+            digitSeperator: true   // Set digit seperator to appear in popups
+          }
+      },{
+          fieldName: "Agency", // Set field name to display in popups
+          label: "Agency",     // Set field alias
+      },{
+          fieldName: "Detected", // Set field name to display in popups
+          label: "Detected",     // Set field alias
       }
-    }, {
-      fieldName: "Household", // Set field name to display in popups
-      label: "Household",     // Set field alias
-      // Set formatting options for numerical fields
-      format: {
-        places: 0,             // Specify the number of supported decimal places that should appear in popups
-        digitSeperator: true   // Set digit seperator to appear in popups
-      }
-    }],
-    // Set template for defining and formatting the popup's content
-    content: "<b>Population:</b> {Population} " + "<br><b>Households:</b> {Household}" + "<br><b>Latitude:</b> {Latitude}" + "<br><b>Longitude:</b> {Longitude}"
+    ],
   };
   // Set variables for new GraphicsLayer
   var resultsLayer = new GraphicsLayer();
   // Set variables for new QueryTask
   var qTask = new QueryTask({
-    url: popUrl
+    url: airUrl
   });
   // Set variables for new Query options (parameters for executing queries)
   var params = new Query({

@@ -21,24 +21,37 @@
 
     <div id="viewDiv">
       <script src ="external.js"></script>
-
-      <!--drop-down menu-->
+      <!--Time Slider-->
+      <div id="timeSliderDiv">
+      </div>
+      <!--query block-->
       <div class="esri-widget" id="optionsDiv">
         <h2>Air Monitoring Locations</h2>
         <select class="esri-widget" id="attSelect">
-          <option value="Population">Population</option>
-          <option value="Household" selected>Household</option>
+          <option value="VOC"selected>VOC (ppm)</option>
+          <option value="Benzene">Benzene (ppm)</option>
+          <option value="Xylene">Xylene (ppm)</option>
+          <option value="Toluene">Toluene (ppm)</option>
+          <option value="Naptha">Naptha (ppm)</option>
+          <option value="H2S">H2S (ppm)</option>
+          <option value="CO">CO (ppm)</option>
+          <option value="PM">Particulates (ug/m3)</option>
         </select>
         <select class="esri-widget" id="signSelect">
           <option value=">">is greater than</option>
           <option value="<">is less than</option>
         </select>
         <select class="esri-widget" id="valSelect">
-          <option value="10000">10,000</option>
-          <option value="50000">50,000</option>
-          <option value="100000">100,000</option>
-          <option value="150000">150,000</option>
-          <option value="200000">200,000</option>
+          <option value="0.1">0.1</option>
+          <option value="0.5">0.5</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
         </select>
         <br>
         <br>
@@ -47,16 +60,29 @@
         <p><span id="printResults"></span></p>
       </div>
 
-      <!--drop-down menu-->
+      <!--drop-down menu
       <div class="dropdown">
         <h1>About Us</h1>
         <div class="dropdown-content">
           <h3 id="authors">Authors</h3>
         </div>
-      </div>
-    </div>
+      </div>-->
     <script src ="external.js"></script>
 </body>
 
+<footer>
+  <div id="copyright">
+    <script>
+     // create a variable to store a new date object with the current date and time.
+     var today = new Date();
+     // set the value of variable year is current year.
+     var year = today.getFullYear();
+     // write copyright message with current year.
+     var author1 = "<a href='https://irinaramirez9.github.io/' target='_blank'>Irina Ramirez</a>";
+     var author2 = "<a href='https://TingHsuanYang24.github.io/' target='_blank'>TingHsuan Yang</a>";
+     document.writeln("Copyright &copy; " + year + " " + author1 + " & " + author2);
+    </script>
+  </div>
+</footer>
 
 </html>
