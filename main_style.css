@@ -2,12 +2,61 @@ body {
     padding: 0;
     margin: 0;
 }
-html, body, #map {
-    height: 100%;
+
+html, body, #titleBanner {
+    height: 5%;
     width: 100%;
 }
 
+html, body, #sideBar {
+    height: 93%;
+    width: 5%;
+    position: absolute;
+    top: 5%;
+}
 
+html, body, #viewDiv {
+    height: 93%;
+    width: 95%;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+
+}
+
+#copyright {
+  color: "black";
+  background-color: "white";
+  height: 2%;
+  width: 100%;
+  margin: 0px;
+  text-align: center;
+  position: absolute;
+  top: 98%;
+  right: 0;
+  margin: 10px;
+  padding: 5px;
+  z-index: 500;
+}
+
+#optionsDiv {
+  background-color: dimgray;
+  color: white;
+  padding: 10px;
+  width: 350px;
+}
+.esri-popup .esri-popup-header .esri-title {
+  font-size: 18px;
+  font-weight: bolder;
+}
+.esri-popup .esri-popup-body  .esri-popup-content {
+  font-size: 14px;
+}
+
+#timeSliderDiv {
+  position: absolute;
+  bottom: 50px;
+}
 
 /* drop-down menun */
 .dropdown {
