@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2019 ITC Facility Fire Air Monitoring</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+
+    <link rel = "stylesheet" type = "text/css" href = "css/main_style.css">
+    <!-- Refer to external arcgis js and css file-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+
+</head>
+<body>
+
+
+  <div id="titleBanner">
+      <h1>Meet the Authors</h1>
+  </div>
+
+  <div id="sideBar">
+
+  </div>
+
+
+  <div id="aboutDiv">
+    <div id="authors">
+<div id="profile-picture">
+<img src=resources/Ramirez-profilepic.jpg width=250px height=250px></img>
+</div>
+
+    <h3>Welcome to our About Us page</h3>
+    My name is Irina Ramirez.
+    I was born and raised in Dallas, Texas. I am a student in the
+   <a href="https://www.geo.txstate.edu/">Geography Department</a> at
+   <a href="https://txstate.edu">Texas State University</a>.
+   During my junior year at Texas State University, I gained an interest in the Geography Department.
+
+   Some of my interests are History, GIScience, and Remote Sensing.
+    </div>
+
+<div id="profile-picture">
+<img src=resources/Ting-profile-picture.jpg width=250px height=250px></img>
+</div>
+
+   My name is Ting Hsuan Yang.<br>
+   I was born in Taiwan. I am curently a student in the
+  <a href="https://www.geo.txstate.edu/">Department of Geography</a> at
+  <a href="https://txstate.edu">Texas State University</a>.
+  Some of my interests include GIScience, Air Pollution, and Spatio-Temporal Analysis.
+</div>
+
+  <!--drop-down menu
+  <div class="dropdown">
+    <h1>About Us</h1>
+    <div class="dropdown-content">
+      <h3 id="authors">Authors</h3>
+    </div>
+  </div>-->
+</body>
+
+<footer>
+  <div id="copyright">
+    <script>
+     // create a variable to store a new date object with the current date and time.
+     var today = new Date();
+     // set the value of variable year is current year.
+     var year = today.getFullYear();
+     // write copyright message with current year.
+     var author1 = "<a href='https://irinaramirez9.github.io/' target='_blank'>Irina Ramirez</a>";
+     var author2 = "<a href='https://TingHsuanYang24.github.io/' target='_blank'>TingHsuan Yang</a>";
+     document.writeln("Copyright &copy; " + year + " " + author1 + " & " + author2);
+    </script>
+  </div>
+</footer>
+
+</html>
