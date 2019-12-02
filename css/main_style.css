@@ -35,36 +35,53 @@ html #titleBanner {
     background-color: MistyRose;
 }
 
-#viewDiv {
+.author {
+    clear: both;
+    margin-top: 10px;
+}
+#viewDiv , #aboutDiv{
     height: 77%;
-    width: 90%;
+    width: 100%;
     position: absolute;
     top: 20%;
-    left: 10%;
+    left: 0%;
+    background-color: white;
 }
 
-#aboutDiv {
-  height: 77%;
-  width: 90%;
-  position: absolute;
-  top: 20%;
-  left: 10%;
-}
-
-#profile-picture{
-  float: inherit;
+#about-container{
+  margin: 50px;
+  padding: 0;
+  height: 100%;
+  width: 100%;
   position: relative;
-}
-
-#container{
-  height: 87%;
-  width: 90%;
-  position: relative;
-  top: 10%;
-  left: 10%;
+  top: 0%;
+  left: 0%;
   font-family: "Arial";
   color:lightpink;
 }
+
+.author {
+    clear: both;
+    margin-top: 10px;
+}
+.profile-picture {
+  position: relative;
+  left: 50px;
+  display: inline-block;
+  clear: left;
+}
+
+.author-intro {
+  float: inherit;
+  position: relative;
+  left: 100px;
+  width: 500px;
+  text-align: justify;
+  align-items: center;
+  display: inline-block;
+  clear: right;
+}
+
 
 #copyright {
   color: "black";
@@ -127,11 +144,12 @@ html #titleBanner {
   width: 150px;
   height: 50px;
   text-align: center;
-  right: 10px;
-  top: 10px;
+  right: 25px;
+  top: 50px;
   display: inline-block;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 500;
+  font-family:Arial;
 }
 
 .dropdown-content {
@@ -144,6 +162,19 @@ html #titleBanner {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 10px 10px;
   z-index: 500;
+}
+#page-links {
+  text-align: center;
+  color: MistyRose;
+}
+
+#page-links a{
+  text-align: center;
+  color: dimgray;
+}
+
+#page-links a:hover {
+  color: lightpink;
 }
 
 .dropdown:hover{
