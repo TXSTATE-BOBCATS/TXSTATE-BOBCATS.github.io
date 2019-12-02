@@ -24,22 +24,40 @@ html #titleBanner {
     color: white;
     text-align: left;
     padding: 10px;
-    font-family: "Arial"
-}
-
-#sideBar {
-    height: 77%;
-    width: 10%;
-    position: absolute;
-    top: 20%;
-    background-color: MistyRose;
+    font-family: "Arial";
 }
 
 .author {
     clear: both;
     margin-top: 10px;
 }
-#viewDiv , #aboutDiv{
+
+.resources {
+    clear: both;
+    margin-top: 10px;
+    margin-left: 100px;
+    font-family: "Arial";
+}
+
+.resources h1 {
+    margin-left: 50px;
+    margin-top: 50px;
+    color: lightpink;
+}
+
+.resources a{
+    clear: both;
+    margin-top: 10px;
+    margin-left: 50px;
+    color: dimgray;
+}
+
+.resources a:hover{
+    font-weight: bold;
+    color: blue;
+}
+
+#viewDiv , #aboutDiv, #resourcesDiv {
     height: 77%;
     width: 100%;
     position: absolute;
@@ -75,11 +93,17 @@ html #titleBanner {
   float: inherit;
   position: relative;
   left: 100px;
-  width: 500px;
+  min-width: 500px;
+  max-width: 50%;
   text-align: justify;
   align-items: center;
   display: inline-block;
   clear: right;
+}
+
+.author-intro a:hover{
+  font-weight: bold;
+  color: blue;
 }
 
 
