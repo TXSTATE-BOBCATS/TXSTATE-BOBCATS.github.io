@@ -80,7 +80,7 @@ function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, BasemapToggle, Fu
 
   // Create a tile layer by referencing its URL
   var WorldMapaLayer = new TileLayer({
-    url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"
+    url: "https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer"
   });
   /*
   // Create HeatMap, set heatmap renderer
