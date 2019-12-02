@@ -66,6 +66,14 @@ html #titleBanner {
     background-color: white;
 }
 
+#timeSliderDiv {
+  height: 188px;
+  width: 375px;
+  position: absolute;
+  bottom: 0px;
+
+}
+
 #about-container{
   margin: 50px;
   padding: 0;
@@ -157,8 +165,10 @@ html #titleBanner {
 
 
 #timeSliderDiv {
+  margin: auto;
   position: absolute;
   bottom: 50px;
+  align-items: center;
 }
 
 /* drop-down menun */

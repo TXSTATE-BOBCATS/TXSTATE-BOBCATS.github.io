@@ -24,7 +24,7 @@
     ],
 function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, BasemapToggle, Fullscreen, Search, TimeSlider, Legend, LayerList, GraphicsLayer, QueryTask, Query, Field, intl, FieldInfoFormat, arrayUtils, dom, on){
   // Create feature layers displaying data of ITC fire and air monitoring
-  var MonitoringLayer = new FeatureLayer({
+  const MonitoringLayer = new FeatureLayer({
     url: "https://services5.arcgis.com/w5EzInDqtu24PScU/arcgis/rest/services/ITC_Air_Monitoring_Map(BZ)/FeatureServer/0",
     outFields: ["DateTime","Type","VOC","Benzene","Xylene","Toluene", "Naptha", "H2S", "CO", "PM", "Agency", "Detected"],
     popupTemplate: popupTemplate,
@@ -36,13 +36,13 @@ function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, BasemapToggle, Fu
   });
   var ITCFireBoundaryLayer = new FeatureLayer({
     url: "https://services5.arcgis.com/w5EzInDqtu24PScU/arcgis/rest/services/ITC_Fire_Map/FeatureServer/1",
-    outFields: ["Name","Shape_Area"],
+    outFields: ["Name"],
     popupTemplate: iTCBoundaryTemplate,
   });
 
   var ITCBoundaryLayer = new FeatureLayer({
     url: "https://services5.arcgis.com/w5EzInDqtu24PScU/arcgis/rest/services/ITC_Fire_Map/FeatureServer/2",
-    outFields: ["Name","Shape_Area"],
+    outFields: ["Name"],
     popupTemplate: iTCBoundaryTemplate,
   });
 
@@ -71,10 +71,7 @@ function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, BasemapToggle, Fu
       {
         fieldName: "Name", // Set field name to display in popups
         label: "Name",     // Set field alias
-      },{
-        fieldName: "Shape_Area", // Set field name to display in popups
-        label: "Shape_Area",     // Set field alias
-      },
+      }
     ]
   };
 
@@ -82,9 +79,9 @@ function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, BasemapToggle, Fu
   var WorldMapaLayer = new TileLayer({
     url: "https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer"
   });
-  /*
+
   // Create HeatMap, set heatmap renderer
-  var heatRenderer = {
+  const heatRenderer = {
     type: "heatmap",
     colorStops: [
       { color: "rgba(63, 40, 102, 0)", ratio: 0 },
@@ -105,16 +102,16 @@ function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, BasemapToggle, Fu
     minPixelIntensity: 0
   };
 
-  var HeatMapLayer = new GraphicsLayer({
+  const HeatMapLayer = new FeatureLayer({
     url: "https://services5.arcgis.com/w5EzInDqtu24PScU/arcgis/rest/services/ITC_Air_Monitoring_Map(BZ)/FeatureServer/0",
     popupTemplate: popupTemplate,
     renderer: heatRenderer
   });
-  */
+
   // Create a map then set its basemap and tilelayers.
   var map = new Map({
     basemap: "topo-vector",
-    layers: [WorldMapaLayer, ITCBoundaryLayer, ITCFireBoundaryLayer,ITCTanksLayer, MonitoringLayer]
+    layers: [WorldMapaLayer, HeatMapLayer, ITCBoundaryLayer, ITCFireBoundaryLayer,ITCTanksLayer, MonitoringLayer]
   });
 
   // Set a mapview
@@ -133,6 +130,7 @@ function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, BasemapToggle, Fu
     "bottom-left"
     );
   */
+
   // Set on-hover feature pop-up info window
   view.on("click", function(event){
     view.popup.open({
@@ -224,23 +222,25 @@ function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, BasemapToggle, Fu
     // Displays the popup
     view.popup.visible = true;
   });
-
+*/
+/*
   // Set Time TimeSlider
   var timeSlider = new TimeSlider({
     container: "timeSliderDiv",
     view: view,
     mode: "time-window",
-    fullTimeExtent: {
-      start: new Date(2019, 0, 1),
-      end: new Date(2019, 0, 1)
-    },
-    values:[
-      new Date(2019,0,1),
-      new Date(2019,1,1)
-    ]
+    });
+    view.ui.add(timeSlider, "manual");
+
+  view.whenLayerView(MonitoringLayer).then(function(lv) {
+    const fullTimeExtent = MonitoringLayer.timeInfo.fullTimeExtent;
+      // set up time slider properties
+    timeSlider.fullTimeExtent = fullTimeExtent;
+    timeSlider.stops = {
+      interval: MonitoringLayer.timeInfo.interval
+    };
   });
-  view.ui.add(timeSlider, "manually");
-  */
+*/
   // Set variables for attribute query selectors
   var attributeName = dom.byId("attSelect");
   var expressionSign = dom.byId("signSelect");
