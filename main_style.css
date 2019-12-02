@@ -1,4 +1,6 @@
 body {
+    height:100%;
+    width: 100%;
     padding: 0;
     margin: 0;
 }
@@ -6,6 +8,9 @@ body {
 html, body, #titleBanner {
     height: 5%;
     width: 100%;
+    background-color: lightpink;
+    position: absolute;
+    left: 0px;
 }
 
 html, body, #sideBar {
@@ -13,6 +18,7 @@ html, body, #sideBar {
     width: 5%;
     position: absolute;
     top: 5%;
+    background-color: MistyRose;
 }
 
 html, body, #viewDiv {
@@ -21,7 +27,6 @@ html, body, #viewDiv {
     position: absolute;
     top: 5%;
     left: 5%;
-
 }
 
 #copyright {
@@ -37,13 +42,32 @@ html, body, #viewDiv {
   margin: 10px;
   padding: 5px;
   z-index: 500;
+  font-size: 14px;
+  font-family: "Arial";
+}
+
+/*.shadow {
+  -moz-box-shadow: 0 0 5px #888;
+  -webkit-box-shadow: 0 0 5px #888;
+  box-shadow: 0 0 5px #888;
+}*/
+#bufferDiv {
+  background-color: dimgray;
+  color: white;
+  padding: 10px;
+  width: 300px;
+  height: 80px;
+  position: absolute;
+  bottom: 135px;
+  right: 15px;
 }
 
 #optionsDiv {
   background-color: dimgray;
   color: white;
   padding: 10px;
-  width: 350px;
+  width: 300px;
+  height: 95px;
 }
 .esri-popup .esri-popup-header .esri-title {
   font-size: 18px;
@@ -52,6 +76,7 @@ html, body, #viewDiv {
 .esri-popup .esri-popup-body  .esri-popup-content {
   font-size: 14px;
 }
+
 
 #timeSliderDiv {
   position: absolute;

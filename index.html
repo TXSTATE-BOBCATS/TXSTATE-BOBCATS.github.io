@@ -21,12 +21,23 @@
 
     <div id="viewDiv">
       <script src ="external.js"></script>
+
       <!--Time Slider-->
       <div id="timeSliderDiv">
       </div>
+
+      <!--buffer tool-->
+      <div class="esri-widget" id="bufferDiv" >
+        <h3 style="margin:0 0 10px 0;">Locate and address then buffer.</h3>
+        <div id="info">
+          <input type="text" id="address" value="Wrigley Field">
+          <button dojotype="dijit.form.Button" id="locate">Locate</button>
+        </div>
+      </div>
+
       <!--query block-->
       <div class="esri-widget" id="optionsDiv">
-        <h2>Air Monitoring Locations</h2>
+        <h3 style="margin:0 0 10px 0;">Air Monitoring Locations</h3>
         <select class="esri-widget" id="attSelect">
           <option value="VOC"selected>VOC (ppm)</option>
           <option value="Benzene">Benzene (ppm)</option>
@@ -35,11 +46,11 @@
           <option value="Naptha">Naptha (ppm)</option>
           <option value="H2S">H2S (ppm)</option>
           <option value="CO">CO (ppm)</option>
-          <option value="PM">Particulates (ug/m3)</option>
+          <option value="PM">PM (ug/m3)</option>
         </select>
         <select class="esri-widget" id="signSelect">
-          <option value=">">is greater than</option>
-          <option value="<">is less than</option>
+          <option value=">">></option>
+          <option value="<="><=</option>
         </select>
         <select class="esri-widget" id="valSelect">
           <option value="0.1">0.1</option>
@@ -53,11 +64,9 @@
           <option value="15">15</option>
           <option value="20">20</option>
         </select>
+        <button dojotype="dijit.form.Button" id="doBtn">Query</button>
         <br>
-        <br>
-        <button class="esri-widget" id="doBtn">Do Query</button>
-        <br>
-        <p><span id="printResults"></span></p>
+        <p style="margin:5px 0"><span id="printResults"></span></p>
       </div>
 
       <!--drop-down menu
